@@ -15,5 +15,44 @@
  */
 package org.apache.ibatis.submitted.record_type;
 
-public record Item(Integer id, Property property) {
+import java.util.Objects;
+
+public final class Item {
+  private final Integer id;
+  private final Property property;
+
+  Item(Integer id, Property property) {
+    this.id = id;
+    this.property = property;
+  }
+
+  public Integer id() {
+    return id;
+  }
+
+  public Property property() {
+    return property;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this) return true;
+    if (obj == null || obj.getClass() != this.getClass()) return false;
+    Item that = (Item) obj;
+    return Objects.equals(this.id, that.id) &&
+      Objects.equals(this.property, that.property);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, property);
+  }
+
+  @Override
+  public String toString() {
+    return "Item[" +
+      "id=" + id + ", " +
+      "property=" + property + ']';
+  }
+
 }

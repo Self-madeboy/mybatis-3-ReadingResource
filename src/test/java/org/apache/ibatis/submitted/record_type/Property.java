@@ -15,9 +15,53 @@
  */
 package org.apache.ibatis.submitted.record_type;
 
-public record Property(int id, String value, String URL) {
-  public String value() {
-    // Differentiate between method call and field access
-    return value + "!";
+import java.util.Objects;
+
+public final class Property {
+  private final int id;
+  private final String value;
+  private final String URL;
+
+  Property(int id, String value, String URL) {
+    this.id = id;
+    this.value = value;
+    this.URL = URL;
   }
+
+  public int id() {
+    return id;
+  }
+
+  public String value() {
+    return value;
+  }
+
+  public String URL() {
+    return URL;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this) return true;
+    if (obj == null || obj.getClass() != this.getClass()) return false;
+    Property that = (Property) obj;
+    return this.id == that.id &&
+      Objects.equals(this.value, that.value) &&
+      Objects.equals(this.URL, that.URL);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, value, URL);
+  }
+
+  @Override
+  public String toString() {
+    return "Property[" +
+      "id=" + id + ", " +
+      "value=" + value + ", " +
+      "URL=" + URL + ']';
+  }
+
+
 }
